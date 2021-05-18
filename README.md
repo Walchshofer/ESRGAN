@@ -1,4 +1,4 @@
-# Neural Super Resolution (ESRGAN)
+# ESRGAN
 
 This is a fork of [JoeyBallentine's fork](https://github.com/JoeyBallentine/ESRGAN) of [BlueAmulet's fork](https://github.com/BlueAmulet/ESRGAN) of [ESRGAN by Xinntao](https://github.com/xinntao/ESRGAN).
 
