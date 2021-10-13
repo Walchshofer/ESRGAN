@@ -154,13 +154,13 @@ class Upscale:
         self.in_nc = None
         self.out_nc = None
 
-        print(
-            'Model{:s}: "{:s}"'.format(
-                "s" if len(model_chain) > 1 else "",
-                # ", ".join([Path(x).stem for x in model_chain]),
-                ", ".join([x for x in model_chain]),
-            )
-        )
+        # print(
+        #     'Model{:s}: "{:s}"'.format(
+        #         "s" if len(model_chain) > 1 else "",
+        #         # ", ".join([Path(x).stem for x in model_chain]),
+        #         ", ".join([x for x in model_chain]),
+        #     )
+        # )
 
         images: List[Path] = []
         for ext in ["png", "jpg", "jpeg", "gif", "bmp", "tiff", "tga"]:
@@ -177,7 +177,7 @@ class Upscale:
             "[progress.percentage]{task.percentage:>3.0f}%",
             TimeRemainingColumn(),
         ) as progress:
-            task_upscaling = progress.add_task("Upscaling", total=len(images))
+            task_upscaling = progress.add_task("Upscaling", total=len(images), visible=False)
             for idx, img_path in enumerate(images, 1):
                 img_input_path_rel = img_path.relative_to(self.input)
                 output_dir = self.output.joinpath(img_input_path_rel).parent
@@ -218,6 +218,7 @@ class Upscale:
                     task_model_chain = progress.add_task(
                         f'{str(idx).zfill(len(str(len(images))))} - "{img_input_path_rel}"',
                         total=len(model_chain),
+                        visible=False
                     )
                 for i, model_path in enumerate(model_chain):
 
@@ -243,6 +244,7 @@ class Upscale:
 
                     # This is for model chaining
                     img = rlt.astype("uint8")
+
                     if len(model_chain) > 1:
                         progress.advance(task_model_chain)
 
